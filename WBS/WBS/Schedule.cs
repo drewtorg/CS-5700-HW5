@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WBS
 {
-    public class TextExporter
+    public enum DayOfWeek { Monday, Tuesday, Wednesday, Thursday, Friday }
+    public class Schedule
     {
     }
 }

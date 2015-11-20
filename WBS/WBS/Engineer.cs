@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace WBS
 {
-    class Engineer
+    public class Engineer
     {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public Dictionary<DayOfWeek, int> Availability { get; set; }
+
     }
 }

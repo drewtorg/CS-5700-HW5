@@ -41,9 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engineer.cs" />
+    <Compile Include="Visitors\EngineerVisitor.cs" />
+    <Compile Include="Tasks\LeafTask.cs" />
+    <Compile Include="Tasks\ParallelParentTask.cs" />
+    <Compile Include="Tasks\ParentTask.cs" />
+    <Compile Include="Schedule.cs" />
+    <Compile Include="Tasks\SequentialParentTask.cs" />
     <Compile Include="TextExporter.cs" />
-    <Compile Include="XMLImporterExporter.cs" />
-    <Compile Include="Task.cs" />
+    <Compile Include="Visitors\Visitor.cs" />
+    <Compile Include="XML\XMLImporterExporter.cs" />
+    <Compile Include="Tasks\Task.cs" />
     <Compile Include="WorkBreakdownStructure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

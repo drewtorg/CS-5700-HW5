@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WBS
+namespace WBS.XML
 {
-    class XMLImporterExporter
+    public static class XMLImporterExporter
     {
     }
 }

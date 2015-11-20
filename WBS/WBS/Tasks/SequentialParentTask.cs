@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WBS
+using WBS;
+
+namespace WBS.Tasks
 {
-    public class TextExporter
+    public class SequentialParentTask : ParentTask
     {
     }
 }

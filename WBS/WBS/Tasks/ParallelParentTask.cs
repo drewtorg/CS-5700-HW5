@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WBS
+using WBS;
+
+namespace WBS.Tasks
 {
-    class Task
+    public class ParallelParentTask : ParentTask
     {
     }
 }

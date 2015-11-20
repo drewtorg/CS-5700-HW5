@@ -8,5 +8,11 @@ namespace WBS
 {
     public class WorkBreakdownStructure
     {
+        private Task root;
+
+        public WorkBreakdownStructure()
+        {
+            root = null;
+        }
     }
 }

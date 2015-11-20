@@ -7,11 +7,11 @@ using WBS.Tasks;
 
 namespace WBS.Visitors
 {
-    public class OriginalHoursVisitor : Visitor
+    public class RevisedHoursVisitor : Visitor
     {
         private int hours;
 
-        public int GetOriginalHours(Task task)
+        public int GetRevisedHours(Task task)
         {
             hours = 0;
             Visit((dynamic) task);
@@ -20,7 +20,7 @@ namespace WBS.Visitors
 
         protected override void Visit(LeafTask task)
         {
-            hours += task.OriginalEstimatedHours;
+            hours += task.RevisedEstimatedHours;
         }
     }
 }

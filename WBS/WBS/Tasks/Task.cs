@@ -14,7 +14,7 @@ namespace WBS.Tasks
         public abstract List<Engineer> AssignedEngineers { get; }
         public abstract int OriginalEstimatedHours { get; }
         public abstract int RevisedEstimatedHours { get; }
-        public abstract int PercentComplete { get; }
+        public abstract double PercentComplete { get; }
         public abstract int EstimatedRemainingHours { get; }
         public abstract int EstimatedDaysToComplete { get; }
     }

@@ -21,6 +21,10 @@ namespace WBS.Tasks
 
         public override List<Engineer> AssignedEngineers { get { return new EngineerVisitor().GetAssignedEngineers(this); } }
         public override int OriginalEstimatedHours { get { return new OriginalHoursVisitor().GetOriginalHours(this); } }
+        public override int RevisedEstimatedHours { get { return new RevisedHoursVisitor().GetRevisedHours(this); } }
+        public override double PercentComplete { get { return new PercentCompleteVisitor().GetPercentComplete(this); } }
+        public override int EstimatedRemainingHours { get { return new RemainingHoursVisitor().GetRemainingHours(this); } }
+        public override int EstimatedDaysToComplete { get { return new EstimatedDaysVisitor().GetEstimatedDays(this); } }
 
         public IEnumerator<Task> GetEnumerator()
         { 

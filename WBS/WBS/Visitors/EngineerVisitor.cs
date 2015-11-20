@@ -12,27 +12,16 @@ namespace WBS.Visitors
     {
         private List<Engineer> assignedEngineers;
 
-        public List<Engineer> GetAssignedEngineers(Task t)
+        public List<Engineer> GetAssignedEngineers(Task task)
         {
             assignedEngineers = new List<Engineer>();
-            Visit((dynamic)t);
+            Visit((dynamic) task);
             return assignedEngineers;
-        }
-
-        protected override void Visit(ParallelParentTask task)
-        {
-            VisitAll(task);
-        }
-
-        protected override void Visit(SequentialParentTask task)
-        {
-            VisitAll(task);
         }
 
         protected override void Visit(LeafTask task)
         {
             assignedEngineers.AddRange(task.AssignedEngineers);
         }
-
     }
 }

@@ -13,10 +13,19 @@ namespace WBS.Visitors
         protected void VisitAll(IEnumerable<Task> tasks)
         {
             foreach (Task t in tasks)
-                Visit((dynamic)t);
+                Visit((dynamic) t);
         }
-        protected abstract void Visit(SequentialParentTask task);
-        protected abstract void Visit(ParallelParentTask task);
+
+        protected virtual void Visit(SequentialParentTask task)
+        {
+            VisitAll(task);
+        }
+
+        protected virtual void Visit(ParallelParentTask task)
+        {
+            VisitAll(task);
+        }
+
         protected abstract void Visit(LeafTask task);
     }
 }

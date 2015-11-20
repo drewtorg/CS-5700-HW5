@@ -12,10 +12,10 @@ namespace WBS.Tasks
         public string Label { get; set; }
         public string Description { get; set; }
         public abstract List<Engineer> AssignedEngineers { get; }
-        public abstract int OriginalEstimatedHours { get; protected set; }
-        public abstract int RevisedEstimatedHours { get; protected set; }
+        public abstract int OriginalEstimatedHours { get; }
+        public abstract int RevisedEstimatedHours { get; }
         public abstract int PercentComplete { get; }
-        public abstract int EstimatedRemainingHours { get; set; }
+        public abstract int EstimatedRemainingHours { get; }
         public abstract int EstimatedDaysToComplete { get; }
     }
 }

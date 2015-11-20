@@ -48,6 +48,7 @@
     <Compile Include="Schedule.cs" />
     <Compile Include="Tasks\SequentialParentTask.cs" />
     <Compile Include="TextExporter.cs" />
+    <Compile Include="Visitors\OriginalHoursVisitor.cs" />
     <Compile Include="Visitors\Visitor.cs" />
     <Compile Include="XML\XMLImporterExporter.cs" />
     <Compile Include="Tasks\Task.cs" />

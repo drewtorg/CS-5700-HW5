@@ -12,21 +12,10 @@ namespace WBS.Tasks
     {
         public override List<Engineer> AssignedEngineers { get; }
         public override int EstimatedDaysToComplete { get { return (EstimatedRemainingHours / 24) + 1; } }
-        public override int EstimatedRemainingHours { get; set; }
-        public override int OriginalEstimatedHours { get; protected set; }
+        public override int EstimatedRemainingHours { get; }
+        public override int OriginalEstimatedHours { get; }
         public override int PercentComplete { get { return (int)((((double)EstimatedRemainingHours) / RevisedEstimatedHours) * 100); } }
-        public override int RevisedEstimatedHours
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            protected set
-            {
-                if(value > E)
-            }
-        }
+        public override int RevisedEstimatedHours { get { throw new NotImplementedException(); } }
 
         public void AddEngineer(Engineer e)
         {

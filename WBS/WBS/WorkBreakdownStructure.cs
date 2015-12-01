@@ -27,5 +27,10 @@ namespace WBS
         {
             new TextExporter().WriteToFile(filename, root);
         }
+
+        public int EstimatedTotalHours { get { return root.RevisedEstimatedHours; } }
+        public double PercentComplete { get { return root.PercentComplete; } }
+        public int EstimatedRemainingHours { get { return root.EstimatedRemainingHours; } }
+        public int EstimatedDaysToComplete { get { return root.EstimatedDaysToComplete; } }
     }
 }

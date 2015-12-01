@@ -54,6 +54,8 @@
     <Compile Include="Visitors\RemainingHoursVisitor.cs" />
     <Compile Include="Visitors\RevisedHoursVisitor.cs" />
     <Compile Include="Visitors\Visitor.cs" />
+    <Compile Include="XML\TaskImportExporter.cs" />
+    <Compile Include="XML\WBSImportExporter.cs" />
     <Compile Include="XML\XMLImporterExporter.cs" />
     <Compile Include="Tasks\Task.cs" />
     <Compile Include="WorkBreakdownStructure.cs" />

@@ -8,8 +8,14 @@ namespace WBS
 {
     public class Engineer
     {
-        public int ID { get; set; }
+        private int hoursAvailable;
+
+        public int ID { get; }
         public string Name { get; set; }
-        public Dictionary<DayOfWeek, int> Availability { get; set; }
+        public int HoursAvailable
+        {
+            get { return hoursAvailable; }
+            set { hoursAvailable = Math.Min(Math.Max(value, 0), 24); }
+        }
     }
 }

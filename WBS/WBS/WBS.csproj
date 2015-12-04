@@ -41,12 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engineer.cs" />
+    <Compile Include="EngineerFactory.cs" />
+    <Compile Include="Tasks\TaskFactory.cs" />
     <Compile Include="Visitors\EngineerVisitor.cs" />
     <Compile Include="Tasks\LeafTask.cs" />
     <Compile Include="Tasks\ParallelParentTask.cs" />
     <Compile Include="Tasks\ParentTask.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="Tasks\SequentialParentTask.cs" />
+    <Compile Include="Visitors\SchedulerVisitor.cs" />
+    <Compile Include="Visitors\TaskListVisitor.cs" />
     <Compile Include="Visitors\TextExporter.cs" />
     <Compile Include="Visitors\EstimatedDaysVisitor.cs" />
     <Compile Include="Visitors\OriginalHoursVisitor.cs" />
@@ -54,8 +58,9 @@
     <Compile Include="Visitors\RemainingHoursVisitor.cs" />
     <Compile Include="Visitors\RevisedHoursVisitor.cs" />
     <Compile Include="Visitors\Visitor.cs" />
-    <Compile Include="XML\TaskImportExporter.cs" />
-    <Compile Include="XML\WBSImportExporter.cs" />
+    <Compile Include="WorkDay.cs" />
+    <Compile Include="XML\TaskImporterExporter.cs" />
+    <Compile Include="XML\WBSImporterExporter.cs" />
     <Compile Include="XML\XMLImporterExporter.cs" />
     <Compile Include="Tasks\Task.cs" />
     <Compile Include="WorkBreakdownStructure.cs" />

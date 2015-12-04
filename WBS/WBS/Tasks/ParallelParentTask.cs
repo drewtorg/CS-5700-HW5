@@ -10,5 +10,6 @@ namespace WBS.Tasks
 {
     public class ParallelParentTask : ParentTask
     {
+        public ParallelParentTask(int id, string label, string description) : base(id, label, description) { }
     }
 }

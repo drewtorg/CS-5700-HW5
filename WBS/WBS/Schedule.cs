@@ -7,11 +7,11 @@ using WBS.Tasks;
 
 namespace WBS
 {
-    public enum DayOfWeek { Monday, Tuesday, Wednesday, Thursday, Friday }
-
-    public class Scheduler
+    public class Schedule
     {
-        public Dictionary<int, List<Engineer>> Schedule { get; set; }
-        public Dictionary<Engineer, List<Task>> TaskList { get; set; }
+        private int numDays = 0;
+        public List<WorkDay> WorkDays { get; set; }
+
+        //public void AddWorkDay
     }
 }

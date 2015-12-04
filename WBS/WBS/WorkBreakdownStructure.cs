@@ -10,27 +10,20 @@ namespace WBS
 {
     public class WorkBreakdownStructure
     {
-        private Task root;
-        private Scheduler schedule;
+        public ParentTask InitialTask { get; set; }
+        public Schedule ProjectSchedule { get; set; }
 
         public WorkBreakdownStructure()
         {
-            root = null;
+            InitialTask = null;
         }
 
-        public List<Task> GetAssignedTasks(Engineer e)
-        {
-            return schedule.TaskList[e];
-        }
-
-        public void Print(string filename)
-        {
-            new TextExporter().WriteToFile(filename, root);
-        }
-
-        public int EstimatedTotalHours { get { return root.RevisedEstimatedHours; } }
-        public double PercentComplete { get { return root.PercentComplete; } }
-        public int EstimatedRemainingHours { get { return root.EstimatedRemainingHours; } }
-        public int EstimatedDaysToComplete { get { return root.EstimatedDaysToComplete; } }
+        public void Print(string filename) { new TextExporter().WriteToFile(filename, InitialTask); }
+        public List<Task> GetTaskList(Engineer e) { return InitialTask.GetTaskList(e); }
+        public int EstimatedTotalHours { get { return InitialTask.RevisedEstimatedHours; } }
+        public double PercentComplete { get { return InitialTask.PercentComplete; } }
+        public int EstimatedRemainingHours { get { return InitialTask.EstimatedRemainingHours; } }
+        public int EstimatedDaysToComplete { get { return InitialTask.EstimatedDaysToComplete; } }
+        public Schedule CreateEstimatedSchedule() { return new SchedulerVisitor().GetEstimatedSchedule(InitialTask); }
     }
 }

@@ -9,7 +9,7 @@ using WBS.Tasks;
 
 namespace WBS.XML
 {
-    public class WBSImportExporter : XMLImporterExporter<WorkBreakdownStructure>
+    public class WBSImporterExporter : XMLImporterExporter<WorkBreakdownStructure>
     {
         private static XmlSerializer serializer = new XmlSerializer(typeof(WorkBreakdownStructure));
 
@@ -24,7 +24,7 @@ namespace WBS.XML
         public WorkBreakdownStructure Import(string path)
         {
             WorkBreakdownStructure wbs = null;
-            using (var stream = File.OpenWrite(path))
+            using (var stream = File.OpenRead(path))
             {
                 wbs = serializer.Deserialize(stream) as WorkBreakdownStructure;
             }

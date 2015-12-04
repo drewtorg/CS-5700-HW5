@@ -17,7 +17,7 @@ namespace WBS.Visitors
             sumPercent = 0;
             numOfPercents = 0;
             Visit((dynamic) task);
-            return sumPercent / numOfPercents;
+            return numOfPercents == 0 ? 0 : sumPercent / numOfPercents;
         }
 
         protected override void Visit(LeafTask task)

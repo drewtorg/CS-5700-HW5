@@ -15,7 +15,7 @@ namespace WBS.Visitors
         {
             days = 0;
             Visit((dynamic) task);
-            return days;
+            return days == 0 ? -1 : days;
         }
 
         protected override void Visit(ParallelParentTask task)

@@ -9,6 +9,9 @@ namespace WBSTest
     public class WBSTester
     {
         [TestCase]
+        public void 
+
+        [TestCase]
         public void TestCreateScheduleSequential()
         {
             WorkBreakdownStructure wbs = new WorkBreakdownStructure();
@@ -80,24 +83,22 @@ namespace WBSTest
 
             Schedule estimate = wbs.CreateEstimatedSchedule();
 
-            Assert.That(estimate.WorkDays.Count, Is.EqualTo(3));
+            Assert.That(estimate.WorkDays.Count, Is.EqualTo(2));
 
             Assert.That(estimate.WorkDays[0].Day, Is.EqualTo(0));
             Assert.That(estimate.WorkDays[1].Day, Is.EqualTo(1));
-            Assert.That(estimate.WorkDays[2].Day, Is.EqualTo(2));
 
-            Assert.That(estimate.WorkDays[0].ScheduledWorkers.Count, Is.EqualTo(3));
+            Assert.That(estimate.WorkDays[0].ScheduledWorkers.Count, Is.EqualTo(4));
             Assert.That(estimate.WorkDays[1].ScheduledWorkers.Count, Is.EqualTo(2));
-            Assert.That(estimate.WorkDays[2].ScheduledWorkers.Count, Is.EqualTo(1));
 
             Assert.That(estimate.WorkDays[0].AssignedTasks[e1][0], Is.EqualTo(leaf1));
             Assert.That(estimate.WorkDays[0].AssignedTasks[e2][0], Is.EqualTo(leaf2));
             Assert.That(estimate.WorkDays[0].AssignedTasks[e3][0], Is.EqualTo(leaf2));
+            Assert.That(estimate.WorkDays[0].AssignedTasks[e4][0], Is.EqualTo(leaf3));
 
             Assert.That(estimate.WorkDays[1].AssignedTasks[e2][0], Is.EqualTo(leaf2));
             Assert.That(estimate.WorkDays[1].AssignedTasks[e3][0], Is.EqualTo(leaf2));
-
-            Assert.That(estimate.WorkDays[2].AssignedTasks[e4][0], Is.EqualTo(leaf3));
+            
         }
     }
 }

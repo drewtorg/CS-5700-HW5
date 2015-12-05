@@ -21,12 +21,12 @@ namespace WBS.Visitors
             Visit((dynamic)task);
             return schedule;
         }
-
-        //Add all tasks that are less than a day into a single day
+        
         protected override void Visit(ParallelParentTask task)
         {
             int startDay = currentDay;
             int lastDay = 0;
+
             foreach (Task t in task.Children)
             {
                 Visit((dynamic)t);
@@ -34,7 +34,6 @@ namespace WBS.Visitors
                 //act as if all tasks are starting on the same day
                 if (currentDay > lastDay)
                     lastDay = currentDay;
-
                 currentDay = startDay;
             }
 
@@ -55,6 +54,7 @@ namespace WBS.Visitors
                 FillInAllPossible(task, hours);
         }
 
+        //used when a task can fill the rest of a day
         private int FillInRemainingHours(LeafTask task, int hours)
         {
             int remainingHours = 8 - hoursFilled;
@@ -63,70 +63,67 @@ namespace WBS.Visitors
 
             WorkDay day = schedule.WorkDays[currentDay++];
 
-            foreach (Engineer e in task.AssignedEngineers)
-            {
-                if (!day.AssignedTasks.ContainsKey(e))
-                {
-                    List<Task> tasks = new List<Task>();
-                    tasks.Add(task);
-                    day.AssignedTasks.Add(e, tasks);
-                }
-                else
-                {
-                    day.AssignedTasks[e].Add(task);
-                }
-            }
+            PopulateWorkDayWithEngineers(task, day);
 
             return hours;
         }
 
+        //used when a task can fill a full day
         private int FillInFullDay(LeafTask task, int hours)
         {
-            WorkDay day;
-            //if (schedule.WorkDays.Count >= currentDay)
-                day = new WorkDay(currentDay++);
-            //else
-            //    day = schedule.WorkDays[currentDay];
-            foreach (Engineer e in task.AssignedEngineers)
-            {
-                if (!day.AssignedTasks.ContainsKey(e))
-                {
-                    List<Task> tasks = new List<Task>();
-                    tasks.Add(task);
-                    day.AssignedTasks.Add(e, tasks);
-                }
-                else
-                {
-                    day.AssignedTasks[e].Add(task);
-                }
+            hours -= 8 * task.AssignedEngineers.Count;
 
-                hours -= 8;
-            }
+            CreateWorkDayByTask(task);
 
-            //if (schedule.WorkDays.Count > currentDay-1)
-                schedule.WorkDays.Add(day);
+            currentDay++;
 
             return hours;
         }
 
+        //used when a task can't fill a day
         private void FillInAllPossible(LeafTask task, int hours)
         {
-            WorkDay day;
-            //if (schedule.WorkDays.Count >= currentDay)
-                day = new WorkDay(currentDay);
-            //else
-            //    day = schedule.WorkDays[currentDay];
             hoursFilled += hours;
             hours = 0;
 
+            CreateWorkDayByTask(task);
+        }
+
+        //creates a work day if it doesn't already exist and assigns engineers
+        private void CreateWorkDayByTask(LeafTask task)
+        {
+            bool addDay = false;
+            WorkDay day;
+            day = schedule.WorkDays.Where(wd => wd.Day == currentDay).SingleOrDefault();
+
+            if (day == null)
+            {
+                day = new WorkDay(currentDay);
+                addDay = true;
+            }
+
+            PopulateWorkDayWithEngineers(task, day);
+            
+            if (addDay)
+                schedule.WorkDays.Add(day);
+        }
+
+        //assigns task to an engineer in the given work day
+        private void PopulateWorkDayWithEngineers(LeafTask task, WorkDay day)
+        {
             foreach (Engineer e in task.AssignedEngineers)
             {
-                List<Task> tasks = new List<Task>();
-                tasks.Add(task);
-                day.AssignedTasks.Add(e, tasks);
+                if (!day.AssignedTasks.ContainsKey(e))
+                {
+                    List<Task> tasks = new List<Task>();
+                    tasks.Add(task);
+                    day.AssignedTasks.Add(e, tasks);
+                }
+                else
+                {
+                    day.AssignedTasks[e].Add(task);
+                }
             }
-            //if (schedule.WorkDays.Count > currentDay - 1)
-                schedule.WorkDays.Add(day);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,11 +8,18 @@ using WBS.Tasks;
 
 namespace WBS
 {
-    public class Schedule
+    public class Schedule : IEnumerable<WorkDay>
     {
-        private int numDays = 0;
         public List<WorkDay> WorkDays { get; set; }
 
-        //public void AddWorkDay
+        public IEnumerator<WorkDay> GetEnumerator()
+        {
+            return ((IEnumerable<WorkDay>)WorkDays).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable<WorkDay>)WorkDays).GetEnumerator();
+        }
     }
 }

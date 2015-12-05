@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+
 using WBS;
 using WBS.Tasks;
 using NUnit.Framework;
@@ -8,8 +10,68 @@ namespace WBSTest
     [TestFixture]
     public class WBSTester
     {
+        const string PATH = "test.txt";
+
         [TestCase]
-        public void 
+        public void TestPrintOutline()
+        {
+            string expected = @"Work Breakdown Structure Outline
+
+Sequential Task - TSK - Test
+	Task - Leaf1 - Test
+	  Estimated Hours: 4
+	  Percent Complete: 0%
+	  Hours Remaining: 4
+	  Hours Worked: 0
+	  Days to Complete: 1
+	  Engineers:
+		E1
+	Task - Leaf2 - Test
+	  Estimated Hours: 12
+	  Percent Complete: 0%
+	  Hours Remaining: 12
+	  Hours Worked: 0
+	  Days to Complete: 2
+	  Engineers:
+		E2
+		E3
+	Task - Leaf3 - Test
+	  Estimated Hours: 2
+	  Percent Complete: 0%
+	  Hours Remaining: 2
+	  Hours Worked: 0
+	  Days to Complete: 1
+	  Engineers:
+		E4
+".Replace("\n", "").Replace("\r", "");
+
+            WorkBreakdownStructure wbs = new WorkBreakdownStructure();
+            ParentTask seq = TaskFactory.Create(typeof(SequentialParentTask), "TSK", "Test");
+            LeafTask leaf1 = TaskFactory.Create("Leaf1", "Test", 4);
+            LeafTask leaf2 = TaskFactory.Create("Leaf2", "Test", 12);
+            LeafTask leaf3 = TaskFactory.Create("Leaf3", "Test", 2);
+            Engineer e1 = EngineerFactory.Create("E1", 4);
+            Engineer e2 = EngineerFactory.Create("E2", 4);
+            Engineer e3 = EngineerFactory.Create("E3", 4);
+            Engineer e4 = EngineerFactory.Create("E4", 4);
+
+            leaf1.AddEngineer(e1);
+            leaf2.AddEngineer(e2);
+            leaf2.AddEngineer(e3);
+            leaf3.AddEngineer(e4);
+
+            seq.AddTask(leaf1);
+            seq.AddTask(leaf2);
+            seq.AddTask(leaf3);
+
+            wbs.InitialTask = seq;
+
+            wbs.Print("test.txt");
+
+            Assert.That(File.Exists(PATH), Is.True);
+            Assert.That(File.ReadAllText(PATH).Replace("\n", "").Replace("\r", ""), Is.EqualTo(expected));
+            File.Delete(PATH);
+        }
 
         [TestCase]
         public void TestCreateScheduleSequential()

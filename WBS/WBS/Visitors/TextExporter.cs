@@ -25,23 +25,31 @@ namespace WBS.Visitors
 
         protected override void Visit(ParallelParentTask task)
         {
-            writer.WriteLine($"{tabs}Parallel Task - {task.Label}");
-            tabs += "\t";
+            writer.WriteLine($"{tabs}Parallel Task - {task.Label} - {task.Description}");
             base.Visit(task);
-            tabs = tabs.Remove(0,1);
         }
 
         protected override void Visit(SequentialParentTask task)
         {
-            writer.WriteLine($"{tabs}Sequential Task - {task.Label}");
-            tabs += "\t";
+            writer.WriteLine($"{tabs}Sequential Task - {task.Label} - {task.Description}");
             base.Visit(task);
-            tabs = tabs.Remove(0, 1);
         }
 
         protected override void Visit(LeafTask task)
         {
-            writer.WriteLine($"{tabs}Task - {task.Label}");
+            tabs += "\t";
+            
+            writer.WriteLine($"{tabs}Task - {task.Label} - {task.Description}");
+            writer.WriteLine($"{tabs}  Estimated Hours: {task.RevisedEstimatedHours}");
+            writer.WriteLine($"{tabs}  Percent Complete: {task.PercentComplete:0%}");
+            writer.WriteLine($"{tabs}  Hours Remaining: {task.EstimatedRemainingHours}");
+            writer.WriteLine($"{tabs}  Hours Worked: {task.HoursWorked}");
+            writer.WriteLine($"{tabs}  Days to Complete: {task.EstimatedDaysToComplete}");
+            writer.WriteLine($"{tabs}  Engineers:");
+            foreach (Engineer e in task.AssignedEngineers)
+                writer.WriteLine($"{tabs}\t{e.Name}");
+
+            tabs = tabs.Remove(0, 1);
         }
     }
 }

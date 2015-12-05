@@ -23,19 +23,37 @@ namespace WBS.Visitors
         }
 
         //Add all tasks that are less than a day into a single day
-        //protected override void Visit(ParallelParentTask task)
-        //{
-        //    int hours = task.EstimatedRemainingHours;
+        protected override void Visit(ParallelParentTask task)
+        {
+            int startDay = currentDay;
+            int lastDay = 0;
+            foreach (Task t in task.Children)
+            {
+                Visit((dynamic)t);
 
-        //    if (hoursFilled != 0)
-        //        hours = FillInRemainingHours(task, hours);
+                //act as if all tasks are starting on the same day
+                if (currentDay > lastDay)
+                    lastDay = currentDay;
 
-        //    while (hours > 8)
-        //        hours = FillInFullDay(task, hours);
+                currentDay = startDay;
+            }
 
-        //    if (hours > 0)
-        //        FillInAllPossible(task, hours);
-        //}
+            currentDay = lastDay;
+        }
+
+        protected override void Visit(LeafTask task)
+        {
+            int hours = task.EstimatedRemainingHours;
+
+            if (hoursFilled != 0)
+                hours = FillInRemainingHours(task, hours);
+
+            while (hours >= 8)
+                hours = FillInFullDay(task, hours);
+
+            if (hours > 0)
+                FillInAllPossible(task, hours);
+        }
 
         private int FillInRemainingHours(LeafTask task, int hours)
         {
@@ -64,7 +82,11 @@ namespace WBS.Visitors
 
         private int FillInFullDay(LeafTask task, int hours)
         {
-            WorkDay day = new WorkDay(currentDay++);
+            WorkDay day;
+            //if (schedule.WorkDays.Count >= currentDay)
+                day = new WorkDay(currentDay++);
+            //else
+            //    day = schedule.WorkDays[currentDay];
             foreach (Engineer e in task.AssignedEngineers)
             {
                 if (!day.AssignedTasks.ContainsKey(e))
@@ -77,15 +99,23 @@ namespace WBS.Visitors
                 {
                     day.AssignedTasks[e].Add(task);
                 }
+
+                hours -= 8;
             }
 
-            hours -= 8;
+            //if (schedule.WorkDays.Count > currentDay-1)
+                schedule.WorkDays.Add(day);
+
             return hours;
         }
 
         private void FillInAllPossible(LeafTask task, int hours)
         {
-            WorkDay day = new WorkDay(currentDay);
+            WorkDay day;
+            //if (schedule.WorkDays.Count >= currentDay)
+                day = new WorkDay(currentDay);
+            //else
+            //    day = schedule.WorkDays[currentDay];
             hoursFilled += hours;
             hours = 0;
 
@@ -95,21 +125,8 @@ namespace WBS.Visitors
                 tasks.Add(task);
                 day.AssignedTasks.Add(e, tasks);
             }
-        }
-
-        //Maybe?
-        protected override void Visit(LeafTask task)
-        {
-            int hours = task.EstimatedRemainingHours;
-
-            if (hoursFilled != 0)
-                hours = FillInRemainingHours(task, hours);
-
-            while (hours > 8)
-                hours = FillInFullDay(task, hours);
-
-            if (hours > 0)
-                FillInAllPossible(task, hours);
+            //if (schedule.WorkDays.Count > currentDay - 1)
+                schedule.WorkDays.Add(day);
         }
     }
 }

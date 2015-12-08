@@ -10,7 +10,7 @@ namespace WBS
 {
     public class WorkBreakdownStructure
     {
-        public ParentTask InitialTask { get; set; }
+        public Task InitialTask { get; set; }
         public Schedule ProjectSchedule { get; set; }
 
         public WorkBreakdownStructure()

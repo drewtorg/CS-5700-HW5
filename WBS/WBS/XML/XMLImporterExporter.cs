@@ -10,7 +10,7 @@ namespace WBS.XML
 {
     public interface XMLImporterExporter<T>
     {
-        void Export(T wbs, string path);
+        void Export(T obj, string path);
         T Import(string path);
     }
 }
